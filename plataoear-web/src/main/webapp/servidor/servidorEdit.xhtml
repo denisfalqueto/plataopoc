@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:trt="http://trt.jus.br/facelets"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	>
+	
+	<h1>Cadastro de Servidor</h1>
+
+	<h:form>
+
+		<h:panelGrid columns="1"> 
+
+			<trt:inputText id="nome"  label="Nome" value="#{servidorAction.entity.nome}" required="true" />
+			
+			<trt:inputText id="email" label="Email" value="#{servidorAction.entity.email}"/>
+
+			<trt:inputText id="cpf"   label="CPF" value="#{servidorAction.entity.cpf}"/>
+			
+			<trt:inputSelect id="uf" label="UF" value="#{servidorAction.cidadeUfController.selectedUf}" 
+								items="#{servidorAction.cidadeUfController.ufs}" itemLabel="sigla" >
+				<p:ajax listener="#{servidorAction.cidadeUfController.loadCidades}" update="cidade_input" />
+			</trt:inputSelect>
+			
+			<trt:inputSelect id="cidade" label="Cidade" value="#{servidorAction.entity.cidade}" 
+								items="#{servidorAction.cidadeUfController.cidades}" itemLabel="nome" />
+				
+		</h:panelGrid>
+
+		<p>
+			<h:commandButton action="#{servidorAction.save()}" value="Salvar" />
+			<h:commandButton action="#{servidorAction.cancelOperation()}" value="Cancelar" immediate="true"/>
+		</p>
+
+	</h:form>
+
+</ui:composition>
+</html>

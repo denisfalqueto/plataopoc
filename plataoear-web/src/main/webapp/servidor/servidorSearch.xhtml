@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:trt="http://java.sun.com/jsf/composite/components/trt">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:trt="http://trt.jus.br/facelets">
+
+	<h1>Consulta de Servidores</h1>
+	<h:form>
+		<f:validateBean disabled="true">
+
+		<trt:inputText id="nome" label="Nome" value="#{servidorAction.example.nome}"/> 
+		<p>
+			<h:commandButton action="#{servidorAction.search()}" value="Pesquisar" />
+			<h:commandButton action="#{servidorAction.prepareToInsert()}" value="Adicionar" />
+		</p>
+
+		</f:validateBean>
+	</h:form>
+
+	<h:panelGroup rendered="#{servidorAction.resultList == null}">
+		<em>Nenhum Servidor cadastrado.</em>
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{empty servidorAction.resultList}">
+		<em>Nenhum Servidor foi encontrado. Por favor revise os
+			parâmetros de consulta informados.</em>
+	</h:panelGroup>
+	
+	<h:form>
+		<p:dataTable var="servidor" value="#{servidorAction.resultList}"
+			rendered="#{not empty servidorAction.resultList}">
+	
+			<f:facet name="header">
+					Servidores Cadastrados
+				</f:facet>
+	
+			<p:column headerText="Id">
+	                #{servidor.id}
+	            </p:column>
+			<p:column headerText="Nome">
+	                #{servidor.nome}
+	            </p:column>
+			<p:column headerText="Email">
+	                #{servidor.email}
+	            </p:column>
+			<p:column headerText="CPF">
+	                #{servidor.cpf}
+	            </p:column>
+			<p:column headerText="Cidade">
+	                #{servidor.cidade.nome} - #{servidor.cidade.uf.sigla} 
+	            </p:column>
+			<p:column headerText="Últ. Alteração">
+	                #{servidor.modifiedOn}
+            </p:column>
+
+	        <p:column>
+                <h:commandLink action="#{servidorAction.prepareToEdit(servidor)}" value="editar" />
+                &nbsp;
+                <h:commandLink action="#{servidorAction.delete(servidor)}" value="remover" />
+                &nbsp;
+				<a href="#{request.contextPath}/rest/servidores/#{servidor.id}">rest</a>
+	        </p:column>    
+
+			<f:facet name="footer">
+	                REST URL pra todos os servidores: <a
+					href="#{request.contextPath}/rest/servidores">/rest/servidores</a>
+			</f:facet>
+		</p:dataTable>
+	</h:form>	
+
+</ui:composition>
+</html>
