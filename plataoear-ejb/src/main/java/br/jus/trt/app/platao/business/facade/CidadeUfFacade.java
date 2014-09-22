@@ -10,7 +10,6 @@ import br.jus.trt.app.platao.business.bobjects.CidadeBO;
 import br.jus.trt.app.platao.business.bobjects.UfBO;
 import br.jus.trt.app.platao.business.domain.Cidade;
 import br.jus.trt.app.platao.business.domain.Uf;
-import br.jus.trt.lib.qbe.domain.UF;
 
 @Stateless
 @SuppressWarnings("serial")
