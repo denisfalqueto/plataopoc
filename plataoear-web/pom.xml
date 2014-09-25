@@ -47,6 +47,12 @@
 
             <dependency>
                 <groupId>br.jus.trt.lib</groupId>
+                <artifactId>common-core</artifactId>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>br.jus.trt.lib</groupId>
                 <artifactId>common-web</artifactId>
             </dependency>
 
