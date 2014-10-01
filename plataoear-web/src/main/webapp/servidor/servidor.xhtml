@@ -6,17 +6,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/templates/default.xhtml">
+	template="/WEB-INF/templates/app_base.xhtml">
+
 	
-	<ui:define name="content">
+	<ui:param name="page_title" value="Cadastro de Servidores" />
 	
+	<ui:define name="body-content">
 		<p:outputPanel id="crud-panel">
-		
-			<f:subview rendered="#{servidorAction.crudOperation.equals('S')}"> 
+			
+			<f:subview rendered="#{servidorAction.crudOperation.equals('S')}">
 				<ui:include src="/servidor/servidorSearch.xhtml" />
 			</f:subview>
 			
-			<f:subview rendered="#{servidorAction.crudOperation.equals('E')}"> 
+			<f:subview rendered="#{servidorAction.crudOperation.equals('E')}">
+				<ui:param name="page_subtitle" value="Manutenção" /> 
 				<ui:include src="/servidor/servidorEdit.xhtml" />	
 			</f:subview>
 			
