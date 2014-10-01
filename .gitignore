@@ -1,3 +1,5 @@
 target/
 *rebel.xml
 .settings
+*.classpath
+*.project
