@@ -9,10 +9,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:trt="http://trt.jus.br/facelets">
 
-	<h1>Consulta de Servidores</h1>
 	<h:form>
 		<f:validateBean disabled="true">
-
+	
 		<trt:inputText id="nome" label="Nome" value="#{servidorAction.example.nome}"/> 
 		<p>
 			<h:commandButton action="#{servidorAction.search()}" value="Pesquisar" />

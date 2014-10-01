@@ -41,8 +41,6 @@
             <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
-                <version>4.0</version>
-                <scope>compile</scope>
             </dependency>
 
             <dependency>
@@ -55,6 +53,12 @@
                 <groupId>br.jus.trt.lib</groupId>
                 <artifactId>common-web</artifactId>
             </dependency>
+            
+            <dependency>
+                <groupId>br.jus.trt.lib</groupId>
+                <artifactId>common-core</artifactId>
+                <scope>provided</scope>
+            </dependency>            
 
             <dependency>
                 <groupId>com.sun.faces</groupId>

@@ -9,21 +9,19 @@
 	xmlns:p="http://primefaces.org/ui"
 	>
 	
-	<h1>Cadastro de Servidor</h1>
-
 	<h:form>
 
 		<h:panelGrid columns="1"> 
 
-			<trt:inputText id="nome"  label="Nome" value="#{servidorAction.entity.nome}" required="true" />
+			<trt:inputText label="Nome" value="#{servidorAction.entity.nome}" required="true" />
 			
-			<trt:inputText id="email" label="Email" value="#{servidorAction.entity.email}"/>
+			<trt:inputText label="Email" value="#{servidorAction.entity.email}"/>
 
 			<trt:inputText id="cpf"   label="CPF" value="#{servidorAction.entity.cpf}"/>
 			
 			<trt:inputSelect id="uf" label="UF" value="#{servidorAction.cidadeUfController.selectedUf}" 
 								items="#{servidorAction.cidadeUfController.ufs}" itemLabel="sigla" >
-				<p:ajax listener="#{servidorAction.cidadeUfController.loadCidades}" update="cidade_input" />
+				<p:ajax listener="#{servidorAction.cidadeUfController.loadCidades}" update="cidade" />
 			</trt:inputSelect>
 			
 			<trt:inputSelect id="cidade" label="Cidade" value="#{servidorAction.entity.cidade}" 
