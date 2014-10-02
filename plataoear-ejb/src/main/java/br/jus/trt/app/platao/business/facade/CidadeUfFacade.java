@@ -3,17 +3,19 @@ package br.jus.trt.app.platao.business.facade;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.jus.trt.app.platao.integration.persistence.CidadeRepository;
 import br.jus.trt.app.platao.integration.persistence.UfBO;
 import br.jus.trt.app.platao.business.domain.Cidade;
 import br.jus.trt.app.platao.business.domain.Uf;
+import br.jus.trt.lib.common_core.business.facade.BusinessExceptionHandler;
+import br.jus.trt.lib.common_core.business.facade.Facade;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 
-@Stateless
-@SuppressWarnings("serial")
-public class CidadeUfFacade implements Serializable  {
+@BusinessExceptionHandler
+@Transactional
+public class CidadeUfFacade implements Serializable, Facade {
 
 	@Inject
 	private UfBO ufBO;
@@ -25,7 +27,7 @@ public class CidadeUfFacade implements Serializable  {
 	 * @return Todas as {@link UF}s cadastradas na base de dados, ordenadas.
 	 */
 	public List<Uf> listUfs() {
-		return ufBO.list(true, "sigla");
+		return ufBO.findAll(true, "sigla");
 	}
 	
 	/**
@@ -33,7 +35,7 @@ public class CidadeUfFacade implements Serializable  {
 	 * @return todas as cidades da {@link UF} informada.
 	 */
 	public List<Cidade> searchCidades(Uf uf) {
-		return cidadeBO.searchCidades(uf);
+		return cidadeBO.findByUf(uf);
 	}
 
 }
