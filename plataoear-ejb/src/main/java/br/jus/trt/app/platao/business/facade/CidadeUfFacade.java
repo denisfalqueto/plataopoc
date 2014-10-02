@@ -6,8 +6,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import br.jus.trt.app.platao.business.bobjects.CidadeBO;
-import br.jus.trt.app.platao.business.bobjects.UfBO;
+import br.jus.trt.app.platao.integration.persistence.CidadeRepository;
+import br.jus.trt.app.platao.integration.persistence.UfBO;
 import br.jus.trt.app.platao.business.domain.Cidade;
 import br.jus.trt.app.platao.business.domain.Uf;
 
@@ -19,7 +19,7 @@ public class CidadeUfFacade implements Serializable  {
 	private UfBO ufBO;
 	
 	@Inject
-	private CidadeBO cidadeBO;
+	private CidadeRepository cidadeBO;
 
 	/**
 	 * @return Todas as {@link UF}s cadastradas na base de dados, ordenadas.
