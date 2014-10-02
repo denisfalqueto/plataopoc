@@ -28,14 +28,14 @@ public class ServidorRESTService {
 	public List<Servidor> listAllMembers() {
 		QBEFilter<Servidor> filter = new QBEFilter<Servidor>(Servidor.class);
 		filter.addFetch("cidade.uf");
-		return servidorCrudFacade.search(filter);
+		return servidorCrudFacade.findAllBy(filter);
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")
 	public Servidor lookupMemberById(@PathParam("id") long id) throws Exception {
-		Servidor servidor = servidorCrudFacade.find(id, "cidade.uf");
+		Servidor servidor = servidorCrudFacade.findBy(id, "cidade.uf");
 		return servidor;
 	}
 }

@@ -19,7 +19,7 @@ import br.jus.trt6.lib.common_web.action.CrudActionBase;
 
 @Named
 @ConversationScoped
-public class ServidorAction extends CrudActionBase<Servidor, ServidorCrudFacade>{
+public class ServidorAction extends CrudActionBase<Servidor, Long, ServidorCrudFacade> {
 	
 	@Inject
 	private Conversation conversation;
