@@ -11,7 +11,6 @@
 
 	<artifactId>platao-web</artifactId>
 	<packaging>war</packaging>
-
 	<name>platao Web module</name>
 
 	<dependencies>
@@ -72,8 +71,18 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 				<configuration>
-					<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
-					<failOnMissingWebXml>false</failOnMissingWebXml>
+                                    <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+                                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp</directory>
+                                            <filtering>true</filtering>
+                                            <!-- Excluir os facelets do filtro -->
+                                            <excludes>
+                                                <exclude>**/*.xhtml</exclude>
+                                            </excludes>
+                                        </resource>
+                                    </webResources>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -17,6 +17,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <trtcommon.version>0.0.1-SNAPSHOT</trtcommon.version>
+        <!-- Variável utilizada para configurar o ProjectStage do DeltaSpike.
+             Pode ser modificada em um profile específico. -->
+        <ambiente>Development</ambiente>
     </properties>
 
     <dependencyManagement>
