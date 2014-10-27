@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.business.facade.ServidorCrudFacade;
 import br.jus.trt.lib.qbe.QBEFilter;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Serviço JAX-RS de consultas relacionadas à entidade {@link Servidor}.
@@ -22,20 +23,25 @@ public class ServidorRESTService {
 
 	@Inject
 	private ServidorCrudFacade servidorCrudFacade;
+        
+        @Inject
+        private Logger log;
 
 	@GET
 	@Produces("text/xml")
 	public List<Servidor> listAllMembers() {
+            log.entry();
 		QBEFilter<Servidor> filter = new QBEFilter<Servidor>(Servidor.class);
 		filter.addFetch("cidade.uf");
-		return servidorCrudFacade.findAllBy(filter);
+		return log.exit(servidorCrudFacade.findAllBy(filter));
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")
 	public Servidor lookupMemberById(@PathParam("id") long id) throws Exception {
+            log.entry(id);
 		Servidor servidor = servidorCrudFacade.findBy(id, "cidade.uf");
-		return servidor;
+		return log.exit(servidor);
 	}
 }

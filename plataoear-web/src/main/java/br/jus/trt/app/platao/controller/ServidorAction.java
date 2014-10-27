@@ -9,9 +9,12 @@ import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.business.facade.ServidorCrudFacade;
 import br.jus.trt.lib.qbe.api.Filter;
 import br.jus.trt6.lib.common_web.action.CrudActionBase;
+import org.apache.logging.log4j.Logger;
 
 /**
- * Clase de controle para atender às requisições da tela de cadastro de servidor.
+ * Clase de controle para atender às requisições da tela de cadastro de
+ * servidor.
+ *
  * @author augusto
  *
  */
@@ -20,46 +23,53 @@ import br.jus.trt6.lib.common_web.action.CrudActionBase;
 @Named
 @ConversationScoped
 public class ServidorAction extends CrudActionBase<Servidor, Long, ServidorCrudFacade> {
-	
-	@Inject
-	private Conversation conversation;
-	
-	@Inject
-	private CidadeUfController cidadeUfController;
-	
-	@Override
-	public void init() {
-		super.init();
-		
-		conversation.begin();
-		search();
-	}
 
-	@Override
-	protected void configSearch(Filter<? extends Servidor> filter) {
-		super.configSearch(filter);
-		
-		// configurando consulta para realização de fetch das dependências
-		filter.addFetch("cidade.uf");
-	}
+    @Inject
+    private Logger log;
+    
+    @Inject
+    private Conversation conversation;
 
-	@Override
-	protected void preLoad(Servidor entidade) {
-		super.preLoad(entidade);
-		
-		// prepara a lista de CidadeUf
-		cidadeUfController.setSelectedUf(entidade.getCidade().getUf());
-		cidadeUfController.loadCidades();
-	}
-	
-	@Override
-	protected void configLoad(Servidor entidade, Filter<Servidor> loadFilter) {
-		super.configLoad(entidade, loadFilter);
-		loadFilter.addFetch("cidade.uf");
-	}
-	
-	public CidadeUfController getCidadeUfController() {
-		return cidadeUfController;
-	}
-	
+    @Inject
+    private CidadeUfController cidadeUfController;
+
+    @Override
+    public void init() {
+        super.init();
+
+        log.entry();
+        conversation.begin();
+        search();
+    }
+
+    @Override
+    protected void configSearch(Filter<? extends Servidor> filter) {
+        super.configSearch(filter);
+        
+        // configurando consulta para realização de fetch das dependências
+        log.entry();
+        filter.addFetch("cidade.uf");
+    }
+
+    @Override
+    protected void preLoad(Servidor entidade) {
+        super.preLoad(entidade);
+
+        // prepara a lista de CidadeUf
+        log.entry(entidade);
+        cidadeUfController.setSelectedUf(entidade.getCidade().getUf());
+        cidadeUfController.loadCidades();
+    }
+
+    @Override
+    protected void configLoad(Servidor entidade, Filter<Servidor> loadFilter) {
+        super.configLoad(entidade, loadFilter);
+        log.entry();
+        loadFilter.addFetch("cidade.uf");
+    }
+
+    public CidadeUfController getCidadeUfController() {
+        return cidadeUfController;
+    }
+
 }

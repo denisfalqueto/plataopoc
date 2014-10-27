@@ -1,91 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <artifactId>platao</artifactId>
-      <groupId>br.jus.trt.app</groupId>
-      <version>0.0.1-SNAPSHOT</version>
-   </parent>
+    <parent>
+        <artifactId>platao</artifactId>
+        <groupId>br.jus.trt.app</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
-   <artifactId>platao-ejb</artifactId>
-   <packaging>ejb</packaging>
+    <artifactId>platao-ejb</artifactId>
+    <packaging>ejb</packaging>
 
-   <name>platao EJB module</name>
+    <name>platao EJB module</name>
 
-   <dependencies>
-       <dependency>
-           <groupId>org.jboss.spec.javax.ejb</groupId>
-           <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>javax.enterprise</groupId>
-           <artifactId>cdi-api</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>org.hibernate.javax.persistence</groupId>
-           <artifactId>hibernate-jpa-2.0-api</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>org.hibernate</groupId>
-           <artifactId>hibernate-validator</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>javax.validation</groupId>
-           <artifactId>validation-api</artifactId>
-       </dependency>
-      <dependency>
-         <groupId>org.jboss.arquillian.junit</groupId>
-         <artifactId>arquillian-junit-container</artifactId>
-         <version>1.0.0.CR4</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-           <groupId>br.jus.trt.lib</groupId>
-           <artifactId>common-core</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>javax.inject</groupId>
-           <artifactId>javax.inject</artifactId>
-       </dependency>
-   </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>1.0.0.CR4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>br.jus.trt.lib</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+        
+        <!-- Log4j2 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
 
-   <build>
-      <plugins>
-         <plugin>
-            <artifactId>maven-ejb-plugin</artifactId>
-            <version>2.3</version>
-            <configuration>
-               <!-- Tell Maven we are using EJB 3.1 -->
-               <ejbVersion>3.1</ejbVersion>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+        <!-- Log4j2 bridges -->
+        <!-- Log4j-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+        </dependency>
+                        
+        <!-- Commons-logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jcl</artifactId>
+        </dependency>
+                        
+        <!-- slfj -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+        </dependency>
+    </dependencies>
 
-   <profiles>
-      <profile>
-         <!-- The default profile skips all tests, though you can tune it 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <!-- Tell Maven we are using EJB 3.1 -->
+                    <ejbVersion>3.1</ejbVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <!-- The default profile skips all tests, though you can tune it 
             to run just unit tests based on a custom pattern -->
-         <!-- Seperate profiles are provided for running all tests, including 
+            <!-- Seperate profiles are provided for running all tests, including 
             Arquillian tests that execute in the specified container -->
-         <id>default</id>
-         <activation>
-            <activeByDefault>true</activeByDefault>
-         </activation>
-         <build>
-            <plugins>
-               <plugin>
-                  <artifactId>maven-surefire-plugin</artifactId>
-                  <version>2.4.3</version>
-                  <configuration>
-                     <skip>true</skip>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.3</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-   </profiles>
+    </profiles>
 
 </project>
