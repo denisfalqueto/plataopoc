@@ -4,7 +4,8 @@
         <RollingFile name="MainRollingFile" fileName="${project.artifactId}.log"
               filePattern="$${date:yyyy-MM}/${project.artifactId}-%d{MM-dd-yyyy}-%i.log.gz">
             <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+                <charset>UTF-8</charset>
+                <Pattern>%d %-5level %class{36} %L %M - %msg%xEx%n</Pattern>
             </PatternLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy />
