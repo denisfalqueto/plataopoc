@@ -5,11 +5,12 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.logging.log4j.Logger;
+
 import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.business.facade.ServidorCrudFacade;
 import br.jus.trt.lib.qbe.api.Filter;
 import br.jus.trt6.lib.common_web.action.CrudActionBase;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Clase de controle para atender às requisições da tela de cadastro de
@@ -39,7 +40,6 @@ public class ServidorAction extends CrudActionBase<Servidor, Long, ServidorCrudF
 
         log.entry();
         conversation.begin();
-        search();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ServidorAction extends CrudActionBase<Servidor, Long, ServidorCrudF
         
         // configurando consulta para realização de fetch das dependências
         log.entry();
-        filter.addFetch("cidade.uf");
+        filter.addFetch("cidade.uf"); 
     }
 
     @Override

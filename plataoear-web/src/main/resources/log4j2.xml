@@ -14,7 +14,7 @@
         </RollingFile>    
     </Appenders>
     <Loggers>
-        <Root level="${log4j2.level}">
+        <Root level="trace">
             <AppenderRef ref="MainRollingFile"/>
         </Root>
     </Loggers>
