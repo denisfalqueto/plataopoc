@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:trt="http://java.sun.com/jsf/composite/components/trt">
+	xmlns:trt="http://java.sun.com/jsf/composite/components/trt">
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,66 +11,86 @@
 
 	<h:form>
 		<f:validateBean disabled="true">
-	
-		<trt:inputText id="nome" label="Nome" value="#{servidorAction.example.nome}"/> 
-		<p>
-			<h:commandButton action="#{servidorAction.search()}" value="Pesquisar" />
-			<h:commandButton action="#{servidorAction.prepareToInsert()}" value="Adicionar" />
-		</p>
+
+			<trt:inputText id="nome" label="Nome"
+				value="#{servidorAction.example.nome}" />
+			<p>
+				<h:commandButton value="Pesquisar" />
+				<h:commandButton action="#{servidorAction.prepareToInsert()}"
+					value="Adicionar" />
+			</p>
 
 		</f:validateBean>
 	</h:form>
 
-	<h:panelGroup rendered="#{servidorAction.resultList == null}">
-		<em>Nenhum Servidor cadastrado.</em>
-	</h:panelGroup>
-
-	<h:panelGroup rendered="#{empty servidorAction.resultList}">
-		<em>Nenhum Servidor foi encontrado. Por favor revise os
-			parâmetros de consulta informados.</em>
-	</h:panelGroup>
-	
 	<h:form>
-		<p:dataTable var="servidor" value="#{servidorAction.resultList}"
-			rendered="#{not empty servidorAction.resultList}">
-	
+		<p:dataTable id="table" var="servidor" value="#{servidorAction.result}"
+			rendered="#{not empty servidorAction.result}" paginator="true"
+			lazy="true"
+			paginatorTemplate="{RowsPerPageDropdown} {totalPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {pageExporters}"
+			paginatorPosition="bottom"
+			rowsPerPageLabel="Exibindo"
+			rowsPerPageTemplate="5,10,20,30,50,100" rows="5"
+			emptyMessage="Nenhum registro foi encontrado.">
+
 			<f:facet name="header">
 					Servidores Cadastrados
-				</f:facet>
-	
-			<p:column headerText="Id">
+			</f:facet>
+
+			<f:facet name="{totalPageReport}">
+					de #{servidorAction.result.rowCount} &nbsp;&nbsp;&nbsp;
+			</f:facet>
+
+
+			<f:facet name="{pageExporters}">
+				<h:commandLink>
+					<p:graphicImage name="/img/excel.png" width="24" library="common"/>
+					<p:dataExporter type="xls" target="table" fileName="servidores" />
+				</h:commandLink>
+
+				<h:commandLink>
+					<p:graphicImage name="/img/pdf.png" width="24" library="common"/>
+					<p:dataExporter type="pdf" target="table" fileName="servidores" />
+				</h:commandLink>
+
+			</f:facet>
+
+
+			<p:column headerText="Id" sortBy="#{servidor.id}">
 	                #{servidor.id}
 	            </p:column>
-			<p:column headerText="Nome">
+			<p:column headerText="Nome" sortBy="#{servidor.nome}">
 	                #{servidor.nome}
 	            </p:column>
-			<p:column headerText="Email">
+			<p:column headerText="Email" sortBy="#{servidor.email}">
 	                #{servidor.email}
 	            </p:column>
-			<p:column headerText="CPF">
+			<p:column headerText="CPF" sortBy="#{servidor.cpf}">
 	                #{servidor.cpf}
 	            </p:column>
-			<p:column headerText="Cidade">
+			<p:column headerText="Cidade" sortBy="#{servidor.cidade.nome}">
 	                #{servidor.cidade.nome} - #{servidor.cidade.uf.sigla} 
 	            </p:column>
-			<p:column headerText="Últ. Alteração">
+			<p:column headerText="Últ. Alteração" sortBy="#{servidor.modifiedOn}">
 	                #{servidor.modifiedOn}
             </p:column>
 
-	        <p:column>
-                <h:commandLink action="#{servidorAction.prepareToEdit(servidor)}" value="editar" />
+			<p:column>
+				<h:commandLink action="#{servidorAction.prepareToEdit(servidor)}"
+					value="editar" />
                 &nbsp;
-                <h:commandLink action="#{servidorAction.delete(servidor)}" value="remover" />
+                <h:commandLink
+					action="#{servidorAction.delete(servidor)}" value="remover" />
                 &nbsp;
 				<a href="#{request.contextPath}/rest/servidores/#{servidor.id}">rest</a>
-	        </p:column>    
+			</p:column>
 
 			<f:facet name="footer">
 	                REST URL pra todos os servidores: <a
 					href="#{request.contextPath}/rest/servidores">/rest/servidores</a>
 			</f:facet>
 		</p:dataTable>
-	</h:form>	
+	</h:form>
 
 </ui:composition>
 </html>
