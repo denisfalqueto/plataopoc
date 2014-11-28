@@ -11,6 +11,7 @@ import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.business.facade.ServidorCrudFacade;
 import br.jus.trt.lib.qbe.api.Filter;
 import br.jus.trt6.lib.common_web.action.CrudActionBase;
+import javax.annotation.PostConstruct;
 
 /**
  * Clase de controle para atender às requisições da tela de cadastro de
@@ -35,6 +36,7 @@ public class ServidorAction extends CrudActionBase<Servidor, Long, ServidorCrudF
     private CidadeUfController cidadeUfController;
 
     @Override
+    @PostConstruct
     public void init() {
         super.init();
 

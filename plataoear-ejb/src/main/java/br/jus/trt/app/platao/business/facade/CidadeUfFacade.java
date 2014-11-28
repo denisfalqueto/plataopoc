@@ -11,7 +11,7 @@ import br.jus.trt.app.platao.business.domain.Cidade;
 import br.jus.trt.app.platao.business.domain.Uf;
 import br.jus.trt.lib.common_core.business.facade.BusinessExceptionHandler;
 import br.jus.trt.lib.common_core.business.facade.Facade;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
+import javax.transaction.Transactional;
 
 @BusinessExceptionHandler
 @Transactional
