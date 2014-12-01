@@ -6,6 +6,7 @@ import br.jus.trt.app.platao.business.domain.Cidade;
 import br.jus.trt.app.platao.business.domain.Uf;
 import br.jus.trt.app.platao.business.facade.CidadeUfFacade;
 import br.jus.trt6.lib.common_web.action.ActionBase;
+import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -39,6 +40,7 @@ public class CidadeUfController extends ActionBase {
     private Uf selectedUf;
 
     @Override
+    @PostConstruct
     public void init() {
         super.init();
         log.debug("Inicializando lista de cidades");
