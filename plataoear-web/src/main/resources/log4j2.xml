@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="DEBUG">
     <Appenders>
-        <RollingFile name="MainRollingFile" fileName="${project.artifactId}.log"
+        <RollingFile name="MainRollingFile" fileName="${sys:jboss.server.log.dir}/${project.artifactId}.log"
               filePattern="$${date:yyyy-MM}/${project.artifactId}-%d{MM-dd-yyyy}-%i.log.gz">
             <PatternLayout>
                 <Pattern>%d %p %c{1.}#%M [%t] %m%n</Pattern>
