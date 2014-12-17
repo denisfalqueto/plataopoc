@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
-    <depoloyment>
+    <deployment>
         <exclusions>
             <module name="org.apache.log4j"/>
             <module name="org.apache.commons.logging"/>
@@ -9,5 +9,5 @@
             <module name="org.jboss.logmanager"/>
             <module name="org.slf4j"/>
         </exclusions>
-    </depoloyment>
+    </deployment>
 </jboss-deployment-structure>
