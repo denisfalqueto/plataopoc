@@ -1,0 +1,91 @@
+<header ng-switch on="$location.path().indexOf('/Servidores/new') > -1">
+    <h3 ng-switch-when="true">Create a new Servidor</h3>
+    <h3 ng-switch-when="false">View or edit Servidor</h3>
+</header>
+<form id="ServidorForm" name="ServidorForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+    <div class="form-group" ng-class="{'has-error': ServidorForm.nome.$invalid}">
+        <label for="nome" class="col-sm-2 control-label">Nome</label>
+        <div id="nomeControls" class="col-sm-10">
+            <input id="nome" name="nome" type="text" required ng-maxlength="100" ng-minlength="5" class="form-control" ng-model="servidor.nome" placeholder="Enter the Servidor Nome"></input>
+            <span class="help-block error" ng-show="ServidorForm.nome.$error.required">required</span> 
+            <span class="help-block error" ng-show="ServidorForm.nome.$error.minlength">minimum length is 5</span>
+            <span class="help-block error" ng-show="ServidorForm.nome.$error.maxlength">maximum length is 100</span>
+        </div>
+    </div>
+
+	<div class="form-group" ng-class="{'has-error': ServidorForm.uf.$invalid}">
+        <label for="uf" class="col-sm-2 control-label">UF</label>
+        <div id="ufControls" class="col-sm-10">
+        <select id="uf" name="uf" class="form-control" ng-model="ufSelection" ng-options="c.text for c in ufSelectionList"  >
+            <option value="">Choose a UF</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ServidorForm.cidade.$invalid}">
+        <label for="cidade" class="col-sm-2 control-label">Cidade</label>
+        <div id="cidadeControls" class="col-sm-10">
+        <select id="cidade" name="cidade" class="form-control" ng-model="cidadeSelection" ng-options="c.text for c in cidadeSelectionList"  >
+            <option value="">Choose a Cidade</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ServidorForm.dataNascimento.$invalid}">
+        <label for="dataNascimento" class="col-sm-2 control-label">Data Nascimento</label>
+        <div id="dataNascimentoControls" class="col-sm-10">
+            <date id="dataNascimento" name="dataNascimento" ng-model="servidor.dataNascimento" placeholder="Enter the Servidor Data Nascimento"></date>
+            <span class="help-block error" ng-show="ServidorForm.dataNascimento.$error.dateFormat">does not match format "yyyy-MM-dd" (e.g. 2013-12-01)</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ServidorForm.cpf.$invalid}">
+        <label for="cpf" class="col-sm-2 control-label">Cpf</label>
+        <div id="cpfControls" class="col-sm-10">
+            <input id="cpf" name="cpf" type="text" ng-maxlength="11" ng-minlength="11" class="form-control" ng-model="servidor.cpf" placeholder="Enter the Servidor Cpf"></input>
+            <span class="help-block error" ng-show="ServidorForm.cpf.$error.minlength">minimum length is 11</span>
+            <span class="help-block error" ng-show="ServidorForm.cpf.$error.maxlength">maximum length is 11</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ServidorForm.email.$invalid}">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div id="emailControls" class="col-sm-10">
+            <input id="email" name="email" type="text" class="form-control" ng-model="servidor.email" placeholder="Enter the Servidor Email"></input>
+            <span class="help-block error" ng-show="ServidorForm.email.$error.maxlength">maximum length is 30</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ServidorForm.createdOn.$invalid}">
+        <label for="createdOn" class="col-sm-2 control-label">Created On</label>
+        <div id="createdOnControls" class="col-sm-10">
+        	{{servidor.createdOn | date:"dd/MM/yyyy 'às' HH:mm"}}
+           <!--  <datetime id="createdOn" name="createdOn" ng-model="servidor.createdOn" placeholder="Enter the Servidor Created On"></datetime>
+            <span class="help-block error" ng-show="ServidorForm.createdOn.$error.datetimeFormat">does not match format "yyyy-MM-dd hh:mm:ss" (e.g. 2013-12-01 22:00:00)</span>
+ 			-->        
+ 		</div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ServidorForm.modifiedOn.$invalid}">
+        <label for="modifiedOn" class="col-sm-2 control-label">Modified On</label>
+        <div id="modifiedOnControls" class="col-sm-10">
+           <!--  <datetime id="modifiedOn" name="modifiedOn" ng-model="servidor.modifiedOn" placeholder="Enter the Servidor Modified On"></datetime>
+            <span class="help-block error" ng-show="ServidorForm.modifiedOn.$error.datetimeFormat">does not match format "yyyy-MM-dd hh:mm:ss" (e.g. 2013-12-01 22:00:00)</span>
+    		-->   	
+     		{{servidor.modifiedOn | date:"dd/MM/yyyy 'às' HH:mm"}}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveServidor" name="saveServidor" class="btn btn-primary" ng-disabled="isClean() || ServidorForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteServidor" name="deleteServidor" class="btn btn-danger" ng-show="servidor.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>
