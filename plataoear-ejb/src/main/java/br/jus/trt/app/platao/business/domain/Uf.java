@@ -5,11 +5,13 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import br.jus.trt.lib.common_core.business.domain.EntityBase;
 
 @SuppressWarnings("serial")
 @Entity
+@XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "sigla"))
 public class Uf extends EntityBase<Long> { 
 
