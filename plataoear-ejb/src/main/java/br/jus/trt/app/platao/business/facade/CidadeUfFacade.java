@@ -3,19 +3,27 @@ package br.jus.trt.app.platao.business.facade;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
-import br.jus.trt.app.platao.integration.persistence.CidadeRepository;
-import br.jus.trt.app.platao.integration.persistence.UfBO;
 import br.jus.trt.app.platao.business.domain.Cidade;
 import br.jus.trt.app.platao.business.domain.Uf;
-import br.jus.trt.lib.common_core.business.facade.BusinessExceptionHandler;
+import br.jus.trt.app.platao.integration.persistence.CidadeRepository;
+import br.jus.trt.app.platao.integration.persistence.UfBO;
+import br.jus.trt.app.platao.rest.dto.CidadeSemUfDTO;
 import br.jus.trt.lib.common_core.business.facade.Facade;
-import javax.transaction.Transactional;
+import br.jus.trt.lib.common_core.domain.UF;
 
-@BusinessExceptionHandler
-@Transactional
-public class CidadeUfFacade implements Serializable, Facade {
+@Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+public class CidadeUfFacade implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private UfBO ufBO;
@@ -38,4 +46,11 @@ public class CidadeUfFacade implements Serializable, Facade {
 		return cidadeBO.findByUf(uf);
 	}
 
+	/**
+	 * @param uf {@link UF} para filtro de cidades.
+	 * @return todas as cidades da {@link UF} informada.
+	 */
+	public List<CidadeSemUfDTO> searchCidadesSemUfDTO(Uf uf) {
+		return cidadeBO.findByUfDTO(uf);
+	}
 }
