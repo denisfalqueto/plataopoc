@@ -20,7 +20,7 @@
         <!-- Variável utilizada para configurar o ProjectStage do DeltaSpike.
         Pode ser modificada em um profile específico. -->
         <ambiente>Development</ambiente>
-        <log4j2.version>2.0.2</log4j2.version>
+        <log4j2.version>2.1</log4j2.version>
         <log4j2.level>ALL</log4j2.level>
     </properties>
 
@@ -38,6 +38,12 @@
                 <artifactId>common-core</artifactId>
                 <version>${trtcommon.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>br.jus.trt.lib</groupId>
+                <artifactId>common-tests</artifactId>
+                <version>${trtcommon.version}</version>
+            </dependency>            
 
             <!-- Define the version of the EJB jar so that we don't need to repeat 
             ourselves in every module -->
@@ -150,6 +156,29 @@
                 <version>${log4j2.version}</version>
                 <scope>runtime</scope>
             </dependency>
+            
+            <!-- Arquillian testes -->
+			<!-- arquillian -->
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.1.5.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jboss.arquillian.extension</groupId>
+				<artifactId>arquillian-transaction-jta</artifactId>
+				<version>1.0.1.Final</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eu.ingwar.tools</groupId>
+				<artifactId>arquillian-suite-extension</artifactId>
+				<version>1.1.2</version>
+			</dependency>
+			            
         </dependencies>
     </dependencyManagement>
 
@@ -191,4 +220,27 @@
             </plugin>
         </plugins>
     </build>
+    
+	<profiles>
+		<profile>
+			<id>wildfly82-remote</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-remote</artifactId>
+					<version>8.2.0.Final</version>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.arquillian.protocol</groupId>
+					<artifactId>arquillian-protocol-servlet</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>    
 </project>

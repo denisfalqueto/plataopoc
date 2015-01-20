@@ -3,6 +3,7 @@ package br.jus.trt.app.platao.business.facade;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -17,6 +18,7 @@ import br.jus.trt.lib.common_core.business.facade.Facade;
 import br.jus.trt.lib.common_core.domain.UF;
 
 @Stateless
+@LocalBean
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class CidadeUfFacade implements Serializable, Facade {
 
