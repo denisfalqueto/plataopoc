@@ -15,7 +15,6 @@ import br.jus.trt.app.platao.integration.persistence.CidadeRepository;
 import br.jus.trt.app.platao.integration.persistence.UfBO;
 import br.jus.trt.app.platao.rest.dto.CidadeSemUfDTO;
 import br.jus.trt.lib.common_core.business.facade.Facade;
-import br.jus.trt.lib.common_core.domain.UF;
 
 @Stateless
 @LocalBean
