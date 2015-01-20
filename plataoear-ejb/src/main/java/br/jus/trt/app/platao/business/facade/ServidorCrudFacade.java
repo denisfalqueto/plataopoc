@@ -1,9 +1,8 @@
 package br.jus.trt.app.platao.business.facade;
 
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
+import br.jus.trt.app.platao.business.ExceptionCodes;
 import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.integration.persistence.ServidorRepository;
 import br.jus.trt.lib.common_core.business.facade.CrudFacadeBase;
@@ -30,7 +29,7 @@ public class ServidorCrudFacade extends CrudFacadeBase<ServidorRepository, Servi
 			filter.filterBy("id", Operators.notEqual(), entity.getId());
 
 			if (count(filter) > 0) {
-				throw new BusinessException(null, "Já existe um Servidor cadastrado com este CPF: {0}.", entity.getCpf());
+				throw new BusinessException(ExceptionCodes.SERVIDOR.RN1_CPF_DUPLICADO, "Já existe um Servidor cadastrado com este CPF: {0}.", entity.getCpf());
 			}
 		}	
 	}
