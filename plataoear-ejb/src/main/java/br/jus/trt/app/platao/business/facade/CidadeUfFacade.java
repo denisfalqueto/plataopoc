@@ -3,6 +3,7 @@ package br.jus.trt.app.platao.business.facade;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -14,9 +15,9 @@ import br.jus.trt.app.platao.integration.persistence.CidadeRepository;
 import br.jus.trt.app.platao.integration.persistence.UfBO;
 import br.jus.trt.app.platao.rest.dto.CidadeSemUfDTO;
 import br.jus.trt.lib.common_core.business.facade.Facade;
-import br.jus.trt.lib.common_core.domain.UF;
 
 @Stateless
+@LocalBean
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class CidadeUfFacade implements Serializable, Facade {
 
@@ -32,23 +33,23 @@ public class CidadeUfFacade implements Serializable, Facade {
 	private CidadeRepository cidadeBO;
 
 	/**
-	 * @return Todas as {@link UF}s cadastradas na base de dados, ordenadas.
+	 * @return Todas as {@link Uf}s cadastradas na base de dados, ordenadas.
 	 */
 	public List<Uf> listUfs() {
 		return ufBO.findAll(true, "sigla");
 	}
 	
 	/**
-	 * @param uf {@link UF} para filtro de cidades.
-	 * @return todas as cidades da {@link UF} informada.
+	 * @param uf {@link Uf} para filtro de cidades.
+	 * @return todas as cidades da {@link Uf} informada.
 	 */
 	public List<Cidade> searchCidades(Uf uf) {
 		return cidadeBO.findByUf(uf);
 	}
 
 	/**
-	 * @param uf {@link UF} para filtro de cidades.
-	 * @return todas as cidades da {@link UF} informada.
+	 * @param uf {@link Uf} para filtro de cidades.
+	 * @return todas as cidades da {@link Uf} informada.
 	 */
 	public List<CidadeSemUfDTO> searchCidadesSemUfDTO(Uf uf) {
 		return cidadeBO.findByUfDTO(uf);
