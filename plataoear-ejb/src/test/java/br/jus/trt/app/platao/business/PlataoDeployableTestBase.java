@@ -1,5 +1,6 @@
 package br.jus.trt.app.platao.business;
 
+import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -14,6 +15,7 @@ import br.jus.trt.lib.common_tests.DeployableTestBase;
  * @author Augusto
  *
  */
+@ArquillianSuiteDeployment
 public class PlataoDeployableTestBase extends DeployableTestBase {
 
 	/**
@@ -28,7 +30,8 @@ public class PlataoDeployableTestBase extends DeployableTestBase {
 	public static Archive<?> createDeployment() {
 
 		JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "platao.jar")
-				.addPackages(true, PlataoAllTestsSuite.class.getPackage())
+				// aproveitando classe "raiz" para importar todas as classes do projeto
+				.addPackages(true, PlataoAllTestsSuite.class.getPackage()) 
 				.addAsResource("test-arquillian-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("test-arquillian-beans.xml", "META-INF/beans.xml")
 				.addAsResource("test-arquillian-log4j2.xml", "log4j.xml")
@@ -43,17 +46,6 @@ public class PlataoDeployableTestBase extends DeployableTestBase {
 		addLibsFromPom(ear);
 		ear.addAsModule(ejb);
 		
-		
-//		WebArchive war = ShrinkWrap
-//				.create(WebArchive.class, "test.war")
-//				.addPackages(true, PlataoAllTestsSuite.class.getPackage())
-//				.addAsResource("test-arquillian-persistence.xml", "META-INF/persistence.xml")
-//				.addAsWebInfResource("test-arquillian-beans.xml", "beans.xml");
-//
-//		addLibsFromPom(war);
-//		installDataLoaderExtension(war);
-//		addDefaultJbossDeploymentStructure(war);
-
 		System.out.println(ejb.toString(true));
 		System.out.println(ear.toString(true));
 		return ear;

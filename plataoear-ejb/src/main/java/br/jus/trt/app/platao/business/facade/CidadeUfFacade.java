@@ -33,23 +33,23 @@ public class CidadeUfFacade implements Serializable, Facade {
 	private CidadeRepository cidadeBO;
 
 	/**
-	 * @return Todas as {@link UF}s cadastradas na base de dados, ordenadas.
+	 * @return Todas as {@link Uf}s cadastradas na base de dados, ordenadas.
 	 */
 	public List<Uf> listUfs() {
 		return ufBO.findAll(true, "sigla");
 	}
 	
 	/**
-	 * @param uf {@link UF} para filtro de cidades.
-	 * @return todas as cidades da {@link UF} informada.
+	 * @param uf {@link Uf} para filtro de cidades.
+	 * @return todas as cidades da {@link Uf} informada.
 	 */
 	public List<Cidade> searchCidades(Uf uf) {
 		return cidadeBO.findByUf(uf);
 	}
 
 	/**
-	 * @param uf {@link UF} para filtro de cidades.
-	 * @return todas as cidades da {@link UF} informada.
+	 * @param uf {@link Uf} para filtro de cidades.
+	 * @return todas as cidades da {@link Uf} informada.
 	 */
 	public List<CidadeSemUfDTO> searchCidadesSemUfDTO(Uf uf) {
 		return cidadeBO.findByUfDTO(uf);

@@ -1,13 +1,16 @@
 package br.jus.trt.app.platao.controller;
 
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+
+import org.apache.logging.log4j.Logger;
+
 import br.jus.trt.app.platao.business.domain.Cidade;
 import br.jus.trt.app.platao.business.domain.Uf;
 import br.jus.trt.app.platao.business.facade.CidadeUfFacade;
 import br.jus.trt6.lib.common_web.action.ActionBase;
-import javax.annotation.PostConstruct;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Classe de controle genérica para auxiliar em associações com Cidade e UF.
