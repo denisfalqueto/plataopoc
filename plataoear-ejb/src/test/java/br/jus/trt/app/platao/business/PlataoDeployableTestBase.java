@@ -34,7 +34,7 @@ public class PlataoDeployableTestBase extends DeployableTestBase {
 				.addPackages(true, PlataoAllTestsSuite.class.getPackage()) 
 				.addAsResource("test-arquillian-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("test-arquillian-beans.xml", "META-INF/beans.xml")
-				.addAsResource("test-arquillian-log4j2.xml", "log4j.xml")
+				.addAsResource("test-arquillian-log4j2.xml", "log4j2.xml")
 				.addAsResource("test-arquillian-apache-deltaspike.properties", "META-INF/apache-deltaspike.properties");
 		installDataLoaderExtension(ejb);
 		
