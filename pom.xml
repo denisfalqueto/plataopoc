@@ -30,21 +30,11 @@
 
             <dependency>
                 <groupId>br.jus.trt.lib</groupId>
-                <artifactId>common-web</artifactId>
+                <artifactId>common</artifactId>
                 <version>${trtcommon.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>br.jus.trt.lib</groupId>
-                <artifactId>common-core</artifactId>
-                <version>${trtcommon.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>br.jus.trt.lib</groupId>
-                <artifactId>common-tests</artifactId>
-                <version>${trtcommon.version}</version>
-            </dependency>            
 
             <!-- Define the version of the EJB jar so that we don't need to repeat 
             ourselves in every module -->
@@ -64,124 +54,6 @@
                 <type>war</type>
                 <scope>compile</scope>
             </dependency>
-
-            <!-- Define the version of JBoss' Java EE 7 APIs we want to import. Any 
-            dependencies from org.jboss.spec will have their version defined by this 
-            BOM -->
-            <!-- JBoss distributes a complete set of Java EE 7 APIs including a Bill 
-            of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-            of artifacts. We use this here so that we always get the correct versions 
-            of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can read this 
-            as the JBoss stack of the Java EE Web Profile 6 APIs), and we use version 
-            2.0.0.Beta1 which is the latest release of the stack. You can actually use 
-            this stack with any version of JBoss AS that implements Java EE 6, not just 
-            JBoss AS 7! -->
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-7.0</artifactId>
-                <version>1.0.1.Final</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- JSR-303 (Bean Validation) Implementation -->
-            <!-- Provides portable constraints such as @Email -->
-            <!-- Hibernate Validator is shipped in JBoss AS 7 -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>5.1.3.Final</version>
-                <scope>provided</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>com.sun.faces</groupId>
-                <artifactId>jsf-api</artifactId>
-                <version>2.2.0</version>
-                <scope>provided</scope>
-            </dependency>
-			
-            <!-- Test dependencies -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.10</version>
-                <type>jar</type>
-                <scope>test</scope>
-            </dependency>
-
-            <!-- Log4j2 -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-                        
-            <!-- Log4j2 bridges -->
-            <!-- Log4j-->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-1.2-api</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-                        
-            <!-- Commons-logging -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-jcl</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-                        
-            <!-- slfj -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-                        
-            <!-- Web servlet support -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-web</artifactId>
-                <version>${log4j2.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            
-            <!-- Arquillian testes -->
-			<!-- arquillian -->
-			<dependency>
-				<groupId>org.jboss.arquillian</groupId>
-				<artifactId>arquillian-bom</artifactId>
-				<version>1.1.5.Final</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jboss.arquillian.extension</groupId>
-				<artifactId>arquillian-transaction-jta</artifactId>
-				<version>1.0.1.Final</version>
-                                <scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.eu.ingwar.tools</groupId>
-				<artifactId>arquillian-suite-extension</artifactId>
-				<version>1.1.2</version>
-                                <scope>test</scope>
-			</dependency>
-			            
 			<!-- Usando o shrinkwrap maven importer mais recente, pois a antiga dá erro de 
 			ArtifactNotFoundException: Could not find artifact br.jus.trt.app:platao-ejb:ejb:0.0.1-SNAPSHOT -->
 	        <dependency>
