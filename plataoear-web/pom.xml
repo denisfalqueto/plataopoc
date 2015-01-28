@@ -119,7 +119,7 @@
 
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
-            <artifactId>deltaspike-jsf-module-impl-ee6</artifactId>
+            <artifactId>deltaspike-jsf-module-impl</artifactId>
             <scope>provided</scope>
         </dependency>
 
