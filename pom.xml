@@ -22,6 +22,7 @@
         <ambiente>Development</ambiente>
         <log4j2.version>2.0.2</log4j2.version>
         <log4j2.level>ALL</log4j2.level>
+        <browser>phantomjs</browser> <!-- PhantomJS será o browser default para testes de interface se nenhum profile for especificado -->
     </properties>
 
     <dependencyManagement>
@@ -180,7 +181,115 @@
 				<version>1.1.2</version>
                                 <scope>test</scope>
 			</dependency>
+			
+			<!-- Usando o shrinkwrap maven importer mais recente, pois a antiga dá erro de 
+			ArtifactNotFoundException: Could not find artifact br.jus.trt.app:platao-ejb:ejb:0.0.1-SNAPSHOT -->
+	        <dependency>
+		      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+		      <artifactId>shrinkwrap-resolver-api</artifactId>
+		      <version>2.2.0-beta-1</version>
+		      <scope>test</scope>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+		      <artifactId>shrinkwrap-resolver-spi</artifactId>
+		      <version>2.2.0-beta-1</version>
+		      <scope>test</scope>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+		      <artifactId>shrinkwrap-resolver-api-maven</artifactId>
+		      <version>2.2.0-beta-1</version>
+		      <scope>test</scope>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+		      <artifactId>shrinkwrap-resolver-spi-maven</artifactId>
+		      <version>2.2.0-beta-1</version>
+		      <scope>test</scope>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+		      <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+		      <version>2.2.0-beta-1</version>
+		      <scope>test</scope>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+		      <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+		      <version>2.2.0-beta-1</version>
+		      <scope>test</scope>
+		    </dependency>
+			
+			
+            <!-- Arquillian Warp -->
+            <dependency>
+			  <groupId>org.jboss.arquillian.extension</groupId>
+			  <artifactId>arquillian-warp-bom</artifactId>
+			  <version>1.0.0.Alpha7</version>
+			  <type>pom</type>
+			  <scope>import</scope>
+			</dependency>
 			            
+		    <!-- Dependências do Arquillian Graphene -->
+		   	<dependency>
+			    <groupId>org.jboss.arquillian.graphene</groupId>
+			    <artifactId>graphene-webdriver</artifactId>
+			    <version>2.1.0.Alpha1</version>
+			    <type>pom</type>
+			    <scope>test</scope>
+			    <!-- 26/01/15 - foi removido essa dependência, pois está com um bug que 
+			    só será resolvido na próxima versão (ainda não foi liberada) -->
+			    <exclusions>
+			    	<exclusion>
+			    		<artifactId>phantomjsdriver</artifactId>
+			    		<groupId>com.github.detro.ghostdriver</groupId>
+			    	</exclusion>
+			    </exclusions>
+		    </dependency>
+		    <!-- 26/01/15 - Usando versão 1.2.1 de terceiros, aguardando o a liberação oficial 
+						do 1.2.1 (somente essa funciona com o selenium 2.44) -->
+			<dependency>
+				<groupId>com.codeborne</groupId>
+				<artifactId>phantomjsdriver</artifactId>
+				<version>1.2.1</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<!-- utilizando as versões mais atuais do selenium, pois somente elas 
+			funcionam na versão atual do firefox (35)  -->
+			<dependency>
+	            <groupId>org.jboss.arquillian.selenium</groupId>
+	            <artifactId>selenium-bom</artifactId>
+	            <version>2.44.0</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	        <!-- Arquillian drone -->
+	        <dependency>
+	            <groupId>org.jboss.arquillian.extension</groupId>
+	            <artifactId>arquillian-drone-bom</artifactId>
+	            <version>1.3.1.Final</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+			
+			<!-- Dependência para testes de aceitação com Cocumber -->
+			<dependency>
+			    <groupId>com.github.cukespace</groupId>
+			    <artifactId>cukespace-core</artifactId>
+			    <version>1.5.10</version>
+			    <scope>test</scope>
+			</dependency>
+			
+			<!-- Usando para testes a versão mais nova do xml-apis, sem ela dá erro 'NoClassDefFoundError: org/w3c/dom/ElementTraversal' -->
+			<dependency>
+	            <groupId>xml-apis</groupId>
+	            <artifactId>xml-apis</artifactId>
+	            <version>1.4.01</version>
+	            <scope>test</scope>
+	        </dependency>
+	        
         </dependencies>
     </dependencyManagement>
 
@@ -354,9 +463,6 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>2.17</version>
 						<configuration>
-							<!-- Fork every test because it will launch a separate AS instance -->
-							<forkCount>1</forkCount>
-							<reuseForks>false</reuseForks>
 							<systemPropertyVariables>
 								<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
 								<!-- the maven dependency plugin will have already downloaded the 
@@ -387,6 +493,18 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>		
+		</profile>
+		<profile>
+	       <id>firefox</id>
+	       <properties>
+	          <browser>firefox</browser>
+	       </properties>
+	    </profile>
+	    <profile>
+	       <id>chrome</id>
+	       <properties>
+	           <browser>chrome</browser>
+	       </properties>
+		</profile>
 	</profiles>    
 </project>

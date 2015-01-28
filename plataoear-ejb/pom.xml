@@ -83,7 +83,12 @@
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>	
+				<dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+          	<artifactId>shrinkwrap-resolver-depchain</artifactId>
+         	<type>pom</type>
+      	</dependency>
 	</dependencies>
 
 	<build>
@@ -97,6 +102,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<testResources>
+	        <testResource>
+	            <directory>src/test/resources</directory>
+	            <filtering>true</filtering>
+	        </testResource>
+	    </testResources>
 	</build>
 
 </project>
