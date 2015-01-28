@@ -259,7 +259,6 @@
 			</dependencies>
 
 			<build>
-			<pluginManagement>
 				<plugins>
 					<!-- You need the maven dependency plugin to download locally a zip 
 						with the server, unless you provide your own, it will download under the 
@@ -309,7 +308,6 @@
 						</configuration>
 					</plugin>
 				</plugins>
-				</pluginManagement>
 			</build>
 		</profile>		
 		<profile>
