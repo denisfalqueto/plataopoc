@@ -14,7 +14,7 @@
 	<name>platao Web module</name>
 
 	<dependencies>
-		
+	
 		<!-- Dependency on the EJB module so we can use it's services if needed -->
 		<dependency>
 			<groupId>br.jus.trt.app</groupId>
@@ -37,6 +37,12 @@
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
             <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
