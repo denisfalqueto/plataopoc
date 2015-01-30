@@ -16,4 +16,11 @@
             <property name="javaVmArguments">-Xmx2G -XX:MaxPermSize=512m -javaagent:target/jacoco-agent/jacocoagent.jar=destfile=target/jacoco.exec,excludes=*,includes=br.jus.*:my.example.test.*,dumponexit=true</property>  
         </configuration>  
     </container> 
+    <extension qualifier="cucumber">
+	    <property name="report">true</property>
+	    <property name="report-directory">target/cucumber-report</property>
+	    <!-- <property name="options">- -tags @foo</property> -->
+	    <!-- <property name="featureHome">/home/test/features</property> -->
+	    <!-- <property name="tempDir">target/custom/features</property> -->
+	</extension>
 </arquillian>

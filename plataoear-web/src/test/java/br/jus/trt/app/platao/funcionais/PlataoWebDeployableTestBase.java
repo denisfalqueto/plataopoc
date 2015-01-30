@@ -68,24 +68,17 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 	@OverProtocol("Servlet 3.0") 
 	public static Archive<?> createDeployment() {
 		
-		System.out.println("create EAR - inicio");
 		EnterpriseArchive ear = createEarArchive();
-		System.out.println("create EAR - fim");
 		
-		System.out.println("create WAR - inicio");
 		WebArchive war = createWarArchive();
-		System.out.println("create WAR - fim");
 		
-		System.out.println("create EJB - inicio");
 		JavaArchive ejb = createEjbArchive();
-		System.out.println("create EJB - fim");
 
 		installDataLoaderExtension(ejb);
 
 		ear.addAsModule(war);
 		ear.addAsModule(ejb);
 		
-		System.out.println("enviando ear");
 		return ear;
 	}
 
@@ -99,7 +92,7 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 	 * 
 	 * @return War do projeto para deploy
 	 */
-	private static WebArchive createWarArchive() {
+	protected static WebArchive createWarArchive() {
 		String cacheFile = "target/war" + calcMD5HashForDir(new File("../plataoear-web/src/main"), new File("../plataoear-web/pom.xml")) + ".cache";
 		WebArchive war = null;
 		
@@ -108,11 +101,14 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 			war = createWarCache(cacheFile);
 		} else {
 			System.out.println("cache hit - " + cacheFile);
-			war = loadCache("platao.war", cacheFile, WebArchive.class);
+			war = loadCache("platao-web-0.0.1-SNAPSHOT.war", cacheFile, WebArchive.class);
 		}
 		
 		// adicionar classes de testes funcionais
 		war.addPackages(true, "br.jus.trt.app.platao.funcionais");
+		war.addPackages(true, "br.jus.trt.app.platao.aceitacao");
+//		war.addAsDirectory("src/test/resources/features");
+		war.addAsResource("features/cadastro_servidor.feature");
 		return war;
 	}
 
@@ -122,11 +118,11 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 	 * @param cacheFile caminho do arquivo cache.
 	 * @return war construído e armazenado em cache no /target 
 	 */
-	private static WebArchive createWarCache(String cacheFile) {
+	protected static WebArchive createWarCache(String cacheFile) {
 		//configurar o resolver
 		MavenResolutionStrategy strategy = new AcceptScopesStrategy(ScopeType.COMPILE, ScopeType.TEST);
 
-		PomEquippedMavenImporter importBuildOutput = ShrinkWrap.create(MavenImporter.class, "platao.war")
+		PomEquippedMavenImporter importBuildOutput = ShrinkWrap.create(MavenImporter.class, "platao-web-0.0.1-SNAPSHOT.war")
 				.loadPomFromFile("../plataoear-web/pom.xml")
 				.importBuildOutput(strategy);
 		
@@ -147,7 +143,7 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 	 * 
 	 * @return Ear do projeto para deploy
 	 */
-	private static EnterpriseArchive createEarArchive() {
+	protected static EnterpriseArchive createEarArchive() {
 		String cacheFile = "target/ear" + calcMD5HashForDir(new File("../plataoear-ejb/src/main"), new File("../plataoear-ejb/pom.xml")) + ".cache";
 		EnterpriseArchive ear = null;
 		
@@ -168,7 +164,7 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 	 * @param cacheFile caminho do arquivo cache.
 	 * @return ear construído e armazenado em cache no /target 
 	 */
-	private static EnterpriseArchive createEarCache(String cacheFile) {
+	protected static EnterpriseArchive createEarCache(String cacheFile) {
 		EnterpriseArchive ear;
 		ear = ShrinkWrap.create(EnterpriseArchive.class,
 				"platao.ear").addAsResource("test-arquillian-application.xml",
@@ -193,7 +189,7 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 	 * 
 	 * @return Jar ejb do projeto para deploy
 	 */
-	private static JavaArchive createEjbArchive() {
+	protected static JavaArchive createEjbArchive() {
 		String cacheFile = "target/ejb" + calcMD5HashForDir(new File("../plataoear-ejb/src/main"), new File("../plataoear-ejb/pom.xml")) + ".cache";
 		JavaArchive ejb = null;
 		
@@ -202,7 +198,7 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 			ejb = createEjbCache(cacheFile);
 		} else {
 			System.out.println("cache hit - " + cacheFile);
-			ejb = loadCache("platao.jar", cacheFile, JavaArchive.class);
+			ejb = loadCache("platao-ejb-0.0.1-SNAPSHOT.jar", cacheFile, JavaArchive.class);
 		}
 		
 		return ejb;
@@ -214,13 +210,13 @@ public class PlataoWebDeployableTestBase extends DeployableTestBase {
 	 * @param cacheFile caminho do arquivo cache.
 	 * @return jar ejb construído e armazenado em cache no /target 
 	 */
-	private static JavaArchive createEjbCache(String cacheFile) {
+	protected static JavaArchive createEjbCache(String cacheFile) {
 		String pathTempEJBPom = createTempEJBPomWithJarPackaging("../plataoear-ejb/pom.xml");
 		
 		MavenResolutionStrategy strategy = new AcceptScopesStrategy(ScopeType.COMPILE);
 		Maven.configureResolver().workOffline().withClassPathResolution(true).withMavenCentralRepo(false);
 		
-		JavaArchive ejb = ShrinkWrap.create(MavenImporter.class, "platao.jar")
+		JavaArchive ejb = ShrinkWrap.create(MavenImporter.class, "platao-ejb-0.0.1-SNAPSHOT.jar")
 				.offline().loadPomFromFile(pathTempEJBPom)
 				.importBuildOutput(strategy).as(JavaArchive.class);
 		
