@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 import br.jus.trt.app.platao.business.domain.Cidade;
+import br.jus.trt.app.platao.business.domain.QServidor;
 import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.business.facade.ServidorCrudFacade;
 import br.jus.trt.app.platao.funcionais.PlataoWebDeployableTestBase;
@@ -167,7 +168,7 @@ public class CadastroServidorSteps extends PlataoWebDeployableTestBase {
 			do {
 				
 				Filter<Servidor> filter = new QBEFilter<Servidor>(Servidor.class);
-				filter.filterBy("cpf", Operators.equal(), cpfNovo);
+				filter.filterBy(QServidor.servidor.cpf, Operators.equal(), cpfNovo);
 				countCpfIgual = servidorCrudFacade.count(filter);
 			} while (countCpfIgual != 0);
 			
