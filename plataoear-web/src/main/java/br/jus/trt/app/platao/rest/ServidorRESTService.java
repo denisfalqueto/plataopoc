@@ -3,6 +3,7 @@ package br.jus.trt.app.platao.rest;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Path;
 
+import br.jus.trt.app.platao.business.domain.QServidor;
 import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.business.facade.ServidorCrudFacade;
 import br.jus.trt.lib.qbe.QBEFilter;
@@ -24,12 +25,12 @@ public class ServidorRESTService extends CrudRestBase<Servidor, Long, ServidorCr
 	
 	@Override
 	protected void configureFilterFindById(QBEFilter<Servidor> filter) {
-		filter.addFetch("cidade.uf");
+		filter.addFetch(QServidor.servidor.cidade.uf);
 	}
 	
 	@Override
 	protected void configureFilterListAll(QBEFilter<Servidor> filter) {
-		filter.addFetch("cidade.uf");
+		filter.addFetch(QServidor.servidor.cidade.uf);
 	}
 	
 }
