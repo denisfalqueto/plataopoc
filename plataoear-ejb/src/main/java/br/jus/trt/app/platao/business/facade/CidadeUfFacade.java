@@ -10,7 +10,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
 import br.jus.trt.app.platao.business.domain.Cidade;
-import br.jus.trt.app.platao.business.domain.QUf;
 import br.jus.trt.app.platao.business.domain.Uf;
 import br.jus.trt.app.platao.integration.persistence.CidadeRepository;
 import br.jus.trt.app.platao.integration.persistence.UfBO;
@@ -37,7 +36,7 @@ public class CidadeUfFacade implements Serializable, Facade {
 	 * @return Todas as {@link Uf}s cadastradas na base de dados, ordenadas.
 	 */
 	public List<Uf> listUfs() {
-		return ufBO.findAll(true, QUf.uf.sigla);
+		return ufBO.findAll(true, "sigla");
 	}
 	
 	/**

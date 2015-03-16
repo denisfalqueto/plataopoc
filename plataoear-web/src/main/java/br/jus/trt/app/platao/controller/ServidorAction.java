@@ -8,7 +8,6 @@ import javax.inject.Named;
 
 import org.apache.logging.log4j.Logger;
 
-import br.jus.trt.app.platao.business.domain.QServidor;
 import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.business.facade.ServidorCrudFacade;
 import br.jus.trt.lib.qbe.api.Filter;
@@ -51,7 +50,7 @@ public class ServidorAction extends CrudActionBase<Servidor, Long, ServidorCrudF
         
         // configurando consulta para realização de fetch das dependências
         log.entry();
-        filter.addFetch(QServidor.servidor.cidade.uf); 
+        filter.addFetch("cidade.uf"); 
     }
 
     @Override
@@ -68,7 +67,7 @@ public class ServidorAction extends CrudActionBase<Servidor, Long, ServidorCrudF
     protected void configLoad(Servidor entidade, Filter<Servidor> loadFilter) {
         super.configLoad(entidade, loadFilter);
         log.entry();
-        loadFilter.addFetch(QServidor.servidor.cidade.uf);
+        loadFilter.addFetch("cidade.uf");
     }
 
     public CidadeUfController getCidadeUfController() {
