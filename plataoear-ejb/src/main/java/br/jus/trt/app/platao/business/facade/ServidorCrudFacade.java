@@ -3,7 +3,6 @@ package br.jus.trt.app.platao.business.facade;
 import javax.ejb.Stateless;
 
 import br.jus.trt.app.platao.business.ExceptionCodes;
-import br.jus.trt.app.platao.business.domain.QServidor;
 import br.jus.trt.app.platao.business.domain.Servidor;
 import br.jus.trt.app.platao.integration.persistence.ServidorRepository;
 import br.jus.trt.lib.common_core.business.facade.CrudFacadeBase;
@@ -26,8 +25,8 @@ public class ServidorCrudFacade extends CrudFacadeBase<ServidorRepository, Servi
 	private void validarCpfDuplicado(Servidor entity) {
 		if (entity != null && entity.getCpf() != null) {
 			Filter<Servidor> filter = new QBEFilter<Servidor>(Servidor.class);
-			filter.filterBy(QServidor.servidor.cpf, Operators.equal(), entity.getCpf());
-			filter.filterBy(QServidor.servidor.id, Operators.notEqual(), entity.getId());
+			filter.filterBy("cpf", Operators.equal(), entity.getCpf());
+			filter.filterBy("id", Operators.notEqual(), entity.getId());
 
 			if (count(filter) > 0) {
 				throw new BusinessException(ExceptionCodes.SERVIDOR.RN1_CPF_DUPLICADO, "Já existe um Servidor cadastrado com este CPF: {0}.", entity.getCpf());
