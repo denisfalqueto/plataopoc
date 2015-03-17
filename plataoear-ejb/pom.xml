@@ -47,7 +47,6 @@
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- Log4j2 -->
@@ -84,12 +83,7 @@
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
 			<scope>test</scope>
-		</dependency>	
-				<dependency>
-            <groupId>org.jboss.shrinkwrap.resolver</groupId>
-          	<artifactId>shrinkwrap-resolver-depchain</artifactId>
-         	<type>pom</type>
-      	</dependency>
+		</dependency>		
 	</dependencies>
 
 	<build>
@@ -103,12 +97,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<testResources>
-	        <testResource>
-	            <directory>src/test/resources</directory>
-	            <filtering>true</filtering>
-	        </testResource>
-	    </testResources>
 	</build>
 
 </project>
